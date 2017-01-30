@@ -10,11 +10,11 @@ export class userStore {
 	_user: user;
 
 	getHash(loginId: string) {
-		var httpresonse;
-		httpresonse = this.$http.get('http://localhost:8000/tmp/api.html').then(response => response.data);
-
-		this._user = new user({loginId: '22222', encryptedId: httpresonse});
-		// this._user = new user({loginId: loginId, encryptedId: 'testHash'});
+		this.$http.get('http://localhost:8000/tmp/api.html')
+			.then((response) => {
+				let httpResponse = response.data;
+				this._user = new user({loginId: httpResponse.loginId, encryptedId: httpResponse.encryptedId});
+			});
 	}
 
 	user() {
